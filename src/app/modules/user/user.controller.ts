@@ -1,0 +1,50 @@
+import catchAsync from "../../utils/catchAsync";
+import { UserServices } from "./user.services";
+import httpStatus from "http-status";
+
+const createdUser = catchAsync(async (req, res) => {
+  const result = await UserServices.createUserDB(req.body);
+  res.status(httpStatus.CREATED).json({
+    success: true,
+    statusCode: 201,
+    message: "user created successfully",
+    result,
+  });
+});
+
+const fetchUser = catchAsync(async (req, res) => {
+  const result = await UserServices.fetchUserDB();
+  res.status(httpStatus.OK).json({
+    success: true,
+    statusCode: 200,
+    message: " user fetch successfully",
+    result,
+  });
+});
+
+const updateUser = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await UserServices.updateUserDB(req.body, userId);
+  res.status(httpStatus.OK).json({
+    success: true,
+    message: "User updated successfully",
+    result,
+  });
+});
+
+const deleteUser = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await UserServices.deleteUserDB(userId);
+  res.status(httpStatus.OK).json({
+    success: true,
+    message: "User Delete successfully",
+    result,
+  });
+});
+
+export const UserController = {
+  createdUser,
+  fetchUser,
+  updateUser,
+  deleteUser,
+};
