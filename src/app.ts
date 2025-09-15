@@ -31,17 +31,29 @@
 import express from "express";
 import cors from "cors";
 import { UserRouter } from "./app/modules/user/user.route";
+import cookieParser from "cookie-parser";
+import notFoundHandler from "./app/middlewares/notFoundHandler";
+import { BaseRouter } from "./app/routes";
+
 // path adjust করো
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Mount user routes
-app.use("/api/users", UserRouter); // final URL: /api/users
+app.use("/api", BaseRouter);
 
 app.get("/", (req, res) => {
   res.send("Server running successfully!");
 });
+
+//Handling not found
+app.use(notFoundHandler);
+
+// Global error handler
+//app.use(globalErrorHandler);
 
 export default app;
