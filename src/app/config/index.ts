@@ -27,3 +27,11 @@ export default {
   jwt_access_secret: process.env.JWT_ACCESS_SECRET,
 };
 
+// Google Drive accounts
+export const driveAccounts = [
+  {
+    client_email: process.env.DRIVE_CLIENT_EMAIL_1!,
+    private_key: process.env.DRIVE_PRIVATE_KEY_1!.replace(/\\n/g, "\n"),
+    folderId: process.env.DRIVE_FOLDER_ID_1!,
+  },
+];
